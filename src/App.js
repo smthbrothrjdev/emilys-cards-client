@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import FlashcardList from "./components/FlashcardList.js";
+import React, { useState, useEffect } from "react";
+import LandingModal from "./components/LandingModal.js";
 
 function App() {
+  const url = "http://localhost:8080";
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch(url + "/flashcards")
+      .then((res) => {
+        return res.json();
+      })
+      .then((dat) => {
+        setData(dat);
+        console.log(dat);
+      });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LandingModal />
     </div>
   );
 }
